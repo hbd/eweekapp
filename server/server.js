@@ -28,7 +28,8 @@ import Parse from 'parse/node';
 import {ParseServer} from 'parse-server';
 import ParseDashboard from 'parse-dashboard';
 
-const SERVER_PORT = process.env.PORT || 8080;
+// process.env.PORT || 
+const SERVER_PORT = 8080;
 const SERVER_HOST = process.env.HOST || 'localhost';
 const APP_ID = process.env.APP_ID || 'oss-f8-app-2016';
 const MASTER_KEY = process.env.MASTER_KEY || '70c6093dba5a7e55968a1c7ad3dd3e5a74ef5cac';

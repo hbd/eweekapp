@@ -24,6 +24,8 @@
  */
 'use strict';
 
+import QRCodeScanner from 'react-native-qrcode-scanner';
+
 var ActionSheetIOS = require('ActionSheetIOS');
 var F8Button = require('F8Button');
 var PureListView = require('../../common/PureListView');
@@ -40,101 +42,73 @@ var VENUE_ADDRESS = '2 Marina Blvd, San Francisco, CA 94123';
 
 class F8MapView extends React.Component {
   constructor() {
-    super();
+  }
 
-    (this: any).handleGetDirections = this.handleGetDirections.bind(this);
-    (this: any).openMaps = this.openMaps.bind(this);
+  onSuccess(e) {
+    Linking.openURL(e.data).catch(err => console.error('An error occured', err))
   }
 
   render() {
-    const {map1, map2} = this.props;
-
     return (
-      <View style={styles.container}>
-        <ListContainer
-          title="Maps"
-          backgroundImage={require('./img/maps-background.png')}
-          backgroundColor={'#9176D2'}>
-          <PureListView
-            title="Overview"
-            renderEmptyList={() => <MapView map={map1} />}
-          />
-          <PureListView
-            title="Developer Garage"
-            renderEmptyList={() => <MapView map={map2} />}
-          />
-        </ListContainer>
-        <F8Button
-          type="secondary"
-          icon={require('./img/directions.png')}
-          caption="Directions to Fort Mason Center"
-          onPress={this.handleGetDirections}
-          style={styles.directionsButton}
-        />
-      </View>
+      <NavigatorIOS
+        initialRoute={{
+          component: QRCodeScanner,
+          title: 'Scan Code',
+          passProps: {
+            onRead: this.onSuccess.bind(this),
+            topContent:
+	      <Text style={styles.centerText}>
+	      Go to
+		<Text style={styles.textBold}>
+		    wikipedia.org/wiki/QR_code
+		  </Text> on your computer and scan the QR code.
+		</Text>,
+            bottomContent: <TouchableOpacity style={styles.buttonTouchable}><Text style={styles.buttonText}>OK. Got it!</Text></TouchableOpacity>
+          }
+        }}
+      style={{flex: 1}}
+	/>
     );
-  }
-
-  handleGetDirections() {
-    if (Platform.OS === 'ios') {
-      ActionSheetIOS.showActionSheetWithOptions(
-        {
-          title: VENUE_ADDRESS,
-          options: ['Open in Apple Maps', 'Open in Google Maps', 'Cancel'],
-          destructiveButtonIndex: -1,
-          cancelButtonIndex: 2,
-        },
-        this.openMaps
-      );
-    } else if (Platform.OS === 'android') {
-      var address = encodeURIComponent(VENUE_ADDRESS);
-      Linking.openURL('http://maps.google.com/maps?&q=' + address);
-    }
-  }
-
-  openMaps(option) {
-    var address = encodeURIComponent(VENUE_ADDRESS);
-    switch (option) {
-      case 0:
-        Linking.openURL('http://maps.apple.com/?q=' + address);
-        break;
-
-      case 1:
-        var nativeGoogleUrl = 'comgooglemaps-x-callback://?q=' +
-          address + '&x-success=f8://&x-source=F8';
-        Linking.canOpenURL(nativeGoogleUrl).then((supported) => {
-          var url = supported ? nativeGoogleUrl : 'http://maps.google.com/?q=' + address;
-          Linking.openURL(url);
-        });
-        break;
-    }
   }
 }
 
 var styles = StyleSheet.create({
-  container: {
+  button: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'pink',
+    borderRadius: 3,
+    padding: 32,
+    width: 100,
+    marginTop: 64,
+    marginBottom: 64,
+  },
+
+  centerText: {
     flex: 1,
+    fontSize: 18,
+    padding: 32,
+    color: '#777',
   },
-  directionsButton: {
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    backgroundColor: 'white',
-    ios: {
-      bottom: 49,
-    },
-    android: {
-      bottom: 0,
-    },
+
+  textBold: {
+    fontWeight: '500',
+    color: '#000',
   },
+
+  buttonText: {
+    fontSize: 21,
+    color: 'rgb(0,122,255)',
+  },
+
+  buttonTouchable: {
+    padding: 16,
+  }
 });
 
 function select(store) {
   return {
-    map1: store.maps.find((map) => map.name === 'Overview'),
-    map2: store.maps.find((map) => map.name === 'Developer Garage'),
   };
 }
 

@@ -4948,6 +4948,10 @@ react-native-camera@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-0.4.0.tgz#24068858c2c7b4141398024a966eb30de4436e8b"
 
+"react-native-camera@github:lwansbrough/react-native-camera":
+  version "0.4.0"
+  resolved "https://codeload.github.com/lwansbrough/react-native-camera/tar.gz/fd61e506e57f2f75e58ddf9eae6252bee8b24372"
+
 react-native-code-push@~1.12.2-beta:
   version "1.12.2-beta"
   resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-1.12.2-beta.tgz#f6ee2e2b872c8b9c1e38b40de446e95428a888d3"
@@ -4965,6 +4969,12 @@ react-native-linear-gradient@~1.5.0:
 react-native-push-notification@frantic/react-native-push-notification#7142da7:
   version "1.0.2"
   resolved "https://codeload.github.com/frantic/react-native-push-notification/tar.gz/7142da7"
+
+react-native-qrcode-scanner@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-qrcode-scanner/-/react-native-qrcode-scanner-0.0.6.tgz#2160871ed011f9dad5344d9891e5c41c33f2449e"
+  dependencies:
+    react-native-camera "github:lwansbrough/react-native-camera"
 
 react-native-send-intent@~1.0.7:
   version "1.0.13"

@@ -26,7 +26,7 @@ import Parse from 'parse/node';
 // process.env.PORT || 
 const SERVER_PORT = 8080;
 
-Parse.initialize('oss-f8-app-2016');
+Parse.initialize('oss-eweek-app-2017');
 Parse.serverURL = `http://localhost:${SERVER_PORT}/parse`;
 
 const BLACKLISTED_KEYS = new Set(['objectId', 'createdAt', 'updatedAt']);

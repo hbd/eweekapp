@@ -25,6 +25,13 @@
 'use strict';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import {
+  AppRegistry,
+  Text,
+  NavigatorIOS,
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native';
 
 var ActionSheetIOS = require('ActionSheetIOS');
 var F8Button = require('F8Button');
@@ -42,32 +49,17 @@ var VENUE_ADDRESS = '2 Marina Blvd, San Francisco, CA 94123';
 
 class F8MapView extends React.Component {
   constructor() {
+    super();
   }
 
   onSuccess(e) {
     Linking.openURL(e.data).catch(err => console.error('An error occured', err))
+    console.log(e)
   }
 
   render() {
     return (
-      <NavigatorIOS
-        initialRoute={{
-          component: QRCodeScanner,
-          title: 'Scan Code',
-          passProps: {
-            onRead: this.onSuccess.bind(this),
-            topContent:
-	      <Text style={styles.centerText}>
-	      Go to
-		<Text style={styles.textBold}>
-		    wikipedia.org/wiki/QR_code
-		  </Text> on your computer and scan the QR code.
-		</Text>,
-            bottomContent: <TouchableOpacity style={styles.buttonTouchable}><Text style={styles.buttonText}>OK. Got it!</Text></TouchableOpacity>
-          }
-        }}
-      style={{flex: 1}}
-	/>
+      <Text> HELLO! </Text>
     );
   }
 }

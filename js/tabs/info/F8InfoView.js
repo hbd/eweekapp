@@ -24,6 +24,17 @@
  */
 'use strict';
 
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import {
+  AppRegistry,
+  Text,
+  NavigatorIOS,
+  TouchableOpacity,
+  TouchableHighlight,
+  Linking,
+  StyleSheet
+} from 'react-native';
+
 var CommonQuestions = require('./CommonQuestions');
 var LinksList = require('./LinksList');
 var ListContainer = require('ListContainer');
@@ -45,15 +56,33 @@ const POLICIES_LINKS = [{
   url: 'https://www.fbf8.com/code-of-conduct',
 }];
 
-function F8InfoView() {
-  return (
-    <ListContainer
-      title="Information"
-      backgroundImage={require('./img/info-background.png')}
-      backgroundColor={'#47BFBF'}>
-      <InfoList />
-    </ListContainer>
-  );
+class F8InfoView extends React.Component {
+  onSuccess(e) {
+    Linking.openURL(e.data).catch(err => console.error('An error occured', err))
+    console.log(e)
+  }
+
+  render() {
+    return (
+      <NavigatorIOS
+	initialRoute={{
+          component: QRCodeScanner,
+          title: 'Scan Code',
+          passProps: {
+            onRead: this.onSuccess.bind(this),
+            topContent:
+	      <Text style={styles.centerText}>
+		  Go to
+		    <Text style={styles.textBold}>
+			wikipedia.org/wiki/QR_code
+		      </Text> on your computer and scan the QR code.
+		</Text>,
+          }
+	}}
+      style={{flex: 1}}
+	/>
+    );
+  }
 }
 
 function InfoList({viewer: {config, faqs, pages}, ...props}) {
@@ -74,6 +103,42 @@ function InfoList({viewer: {config, faqs, pages}, ...props}) {
     />
   );
 }
+
+
+var styles = StyleSheet.create({
+  button: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'pink',
+    borderRadius: 3,
+    padding: 32,
+    width: 100,
+    marginTop: 64,
+    marginBottom: 64,
+  },
+
+  centerText: {
+    flex: 1,
+    fontSize: 18,
+    padding: 32,
+    color: '#777',
+  },
+
+  textBold: {
+    fontWeight: '500',
+    color: '#000',
+  },
+
+  buttonText: {
+    fontSize: 21,
+    color: 'rgb(0,122,255)',
+  },
+
+  buttonTouchable: {
+    padding: 16,
+  }
+});
 
 InfoList = Relay.createContainer(InfoList, {
   fragments: {
@@ -98,3 +163,16 @@ InfoList = Relay.createContainer(InfoList, {
 });
 
 module.exports = F8InfoView;
+
+/*
+
+
+      <ListContainer
+    title="Information"
+    backgroundImage={require('./img/info-background.png')}
+    backgroundColor={'#47BFBF'}>
+      <InfoList />
+      </ListContainer>
+
+
+*/

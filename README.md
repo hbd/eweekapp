@@ -1,95 +1,65 @@
-# EWeek App 2017
+## [fastlane match](https://github.com/fastlane/fastlane/tree/master/match#readme)
 
-This is the entire source code of the official [EWeek](https://www.uteweek.com/) app of 2017 which is not available yet.
+This repository contains all your certificates and provisioning profiles needed to build and sign your applications. They are encrypted using OpenSSL via a passphrase.
 
-This project is built on top of a fork of [F8](https://github.com/fbsamples/f8app) app made by Facebook. Thank you for letting us use this!
+**Important:** Make sure this repository is set to private and only your team members have access to this repo.
 
-<img src=".github/screenshot-app@2x.png" width="800">
+Do not modify this file, as it gets overwritten every time you run `match`.
 
-## How We Build It
+### Installation
 
-Facebook created a series of tutorials at [makeitopen.com](http://makeitopen.com/) that explain how they built the app, and that dives into using React Native, Redux, Relay, GraphQL, and more.
+Make sure you have the latest version of the Xcode command line tools installed:
 
-## Requirements
+```
+xcode-select --install
+```
 
-1. [React Native](http://facebook.github.io/react-native/docs/getting-started.html) (follow iOS and Android guides)
-  - Xcode 7.3 +
-2. [CocoaPods](http://cocoapods.org) (only for iOS)
-  - Version 1.0+ recommended (`gem install cocoapods --pre`)
-3. [MongoDB](https://www.mongodb.org/downloads) (needed to run Parse Server locally)
+### Choose your installation method:
 
-## Setup
+<table width="100%" >
+<tr>
+<th width="33%"><a href="http://brew.sh">Homebrew</a></td>
+<th width="33%">Installer Script</td>
+<th width="33%">Rubygems</td>
+</tr>
+<tr>
+<td width="33%" align="center">macOS</td>
+<td width="33%" align="center">macOS</td>
+<td width="33%" align="center">macOS or Linux with Ruby 2.0.0 or above</td>
+</tr>
+<tr> 
+<td width="33%"><code>brew cask install fastlane</code></td>
+<td width="33%"><a href="https://download.fastlane.tools/fastlane.zip">Download the zip file</a>. Then double click on the <code>install</code> script (or run it in a terminal window).</td>
+<td width="33%"><code>sudo gem install fastlane -NV</code></td>
+</tr>
+</table>
 
-1. **Clone the repo**
+### Usage
 
-  ```
-  $ git clone https://github.com/fbsamples/f8app.git
-  $ cd f8app
-  ```
+Navigate to your project folder and run
 
-2. **Install dependencies** (npm v3+):
+```
+fastlane match appstore
+```
+```
+fastlane match adhoc
+```
+```
+fastlane match development
+```
 
-  ```
-  $ npm install
-  $ (cd ios; pod install)        # only for iOS version
-  ```
+For more information open [fastlane match git repo](https://github.com/fastlane/fastlane/tree/master/match#readme)
 
-3. **Make sure MongoDB is running:**
+### Content
 
-  ```
-  $ lsof -iTCP:27017 -sTCP:LISTEN
-  ```
+#### certs
 
-  NOTE: if installed with [Homebrew](http://brew.sh/) run `brew info mongo` and
-  check out the Caveats section.
+This directory contains all your certificates with their private keys
 
-  If you prefer to use an external MongoDB server, set `DATABASE_URI`:
+#### profiles
 
-  ```
-  $ export DATABASE_URI=mongodb://example-mongo-hosting.com:1337/my-awesome-database
-  ```
+This directory contains all provisioning profiles
 
-4. **Start Parse/GraphQL servers:**
+------------------------------------
 
-  ```
-  $ npm start
-  ```
-
-5. **Import sample data** (the local Parse Server should be running):
-
-  ```
-  $ npm run import-data
-  ```
-
-  Make sure everything works by visiting:
-
-  * Parse Dashboard: [http://localhost:8080/dashboard](http://localhost:8080/dashboard)
-  * Graph*i*QL: [http://localhost:8080/graphql](http://localhost:8080/graphql?query=query+%7B%0A++schedule+%7B%0A++++title%0A++++speakers+%7B%0A++++++name%0A++++++title%0A++++%7D%0A++++location+%7B%0A++++++name%0A++++%7D%0A++%7D%0A%7D)
-
-  <img src=".github/screenshot-server@2x.png" width="800">
-
-
-6. **Running on Android**:
-
-  ```
-  $ react-native run-android
-  $ adb reverse tcp:8081 tcp:8081   # required to ensure the Android app can
-  $ adb reverse tcp:8080 tcp:8080   # access the Packager and GraphQL server
-  ```
-
-
-7. **Running on iOS:**
-
-  ```
-  $ react-native run-ios
-  ```
-
-## Troubleshooting
-
-> Could not connect to development server
-
-In a separate terminal window run:
-
-  ```
-  $ react-native start
-  ```
+For more information open [fastlane match git repo](https://github.com/fastlane/fastlane/tree/master/match#readme)

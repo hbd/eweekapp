@@ -27,7 +27,8 @@
 module.exports = {
   testMenuEnabled: true,
 //  serverURL: 'http://192.168.33.135:8080',
-  serverURL: 'http://parse-env.gu54iwrzas.us-east-2.elasticbeanstalk.com',
+    //  serverURL: 'http://parse-env.gu54iwrzas.us-east-2.elasticbeanstalk.com',
+    serverURL: 'http://localhost:8080',
   version: 323,
-  fontFamily: undefined,
+  fontFamily: undefined
 };

@@ -32,7 +32,7 @@ platform :ios do
   lane :increment do
     # Change build number
     increment_build_number(
-      xcodeproj: "./ios/EWeek.xcworkspace"
+      xcodeproj: "./ios/EWeek.xcodeproj"
     )
   end
 
@@ -46,7 +46,7 @@ platform :ios do
   desc "Increment the app version patch"
   lane :bump_patch do
     increment_version_number(
-      xcodeproj: "./ios/EWeek.xcworkspace",
+      xcodeproj: "./ios/EWeek.xcodeproj",
       bump_type: "patch"
     )
   end
@@ -55,7 +55,7 @@ platform :ios do
   desc "Increment the app version minor"
   lane :bump_minor do
     increment_version_number(
-      xcodeproj: "./ios/EWeek.xcworkspace",
+      xcodeproj: "./ios/EWeek.xcodeproj",
       bump_type: "minor"
     )
   end
@@ -64,7 +64,7 @@ platform :ios do
   desc "Increment the app version major"
   lane :bump_major do
     increment_version_number(
-      xcodeproj: "./ios/EWeek.xcworkspace",
+      xcodeproj: "./ios/EWeek.xcodeproj",
       bump_type: "major"
     )
   end
@@ -77,12 +77,12 @@ platform :ios do
 
     # Increment build number
     current_build_number = increment_build_number(
-      xcodeproj: "./ios/EWeek.xcworkspace"
+      xcodeproj: "./ios/EWeek.xcodeproj"
     )
 
 
     # Bump the version (optional)
-    current_app_version = get_version_number(xcodeproj: "./ios/EWeek.xcworkspace")
+    current_app_version = get_version_number(xcodeproj: "./ios/EWeek.xcodeproj")
 
     puts "Current version of the app: " + current_app_version
     is_bumping = UI.select("Would you like to increment the app version?", ["Yes", "No"])
@@ -96,12 +96,12 @@ platform :ios do
         bump_major
       end
 
-      current_app_version = get_version_number(xcodeproj: "./ios/EWeek.xcworkspace")
+      current_app_version = get_version_number(xcodeproj: "./ios/EWeek.xcodeproj")
 
       # Commit the version and build bump to git
       commit_version_bump(
         message: "Committing bump to version " + current_app_version + ", build " + current_build_number,
-        xcodeproj: "./ios/EWeek.xcworkspace",
+        xcodeproj: "./ios/EWeek.xcodeproj",
         force: true
       )
 
@@ -109,7 +109,7 @@ platform :ios do
       # Just commit the build bump
       commit_version_bump(
         message: "Committing bump to version build " + current_build_number,
-        xcodeproj: "./ios/EWeek.xcworkspace",
+        xcodeproj: "./ios/EWeek.xcodeproj",
         force: true
       )
     end
@@ -117,7 +117,7 @@ platform :ios do
     # Build the app
     gym(
       scheme: "EWeek",
-      workspace: "./ios/EWeek.xcworkspace"
+      workspace: "./ios/EWeek.xcodeproj"
     )
   end
 

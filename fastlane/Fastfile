@@ -117,7 +117,7 @@ platform :ios do
     # Build the app
     gym(
       scheme: "EWeek",
-      workspace: "./ios/EWeek.xcodeproj"
+      workspace: "./ios/EWeek.xcworkspace"
     )
   end
 
